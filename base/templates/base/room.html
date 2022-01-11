@@ -60,7 +60,11 @@
             <p>Hosted By</p>
             <a href="{% url 'user-profile' room.host.id %}" class="room__author">
               <div class="avatar avatar--small">
-                <img src="{{room.host.avatar.url}}" />
+                {% if request.user.avatar.url == "/images/avatar.svg" %}
+                  <img src="{% static 'images/avatar.svg' %}" />
+                {% else %}
+                  <img src="{{request.user.avatar.url}}" />
+                {% endif %}
               </div>
               <span>@{{room.host.username}}</span>
             </a>
@@ -83,7 +87,11 @@
                 <div class="thread__author">
                   <a href="{% url 'user-profile' message.user.id %}" class="thread__authorInfo">
                     <div class="avatar avatar--small">
-                      <img src="{{message.user.avatar.url}}" />
+                      {% if request.user.avatar.url == "/images/avatar.svg" %}
+                          <img src="{% static 'images/avatar.svg' %}" />
+                      {% else %}
+                        <img src="{{request.user.avatar.url}}" />
+                      {% endif %}
                     </div>
                     <span>@{{message.user.username}}</span>
                   </a>
@@ -128,7 +136,11 @@
         {% for user in participants %}
         <a href="{%  url 'user-profile' user.id %}" class="participant">
           <div class="avatar avatar--medium">
-            <img src="{{user.avatar.url}}" />
+            {% if request.user.avatar.url == "/images/avatar.svg" %}
+              <img src="{% static 'images/avatar.svg' %}" />
+            {% else %}
+              <img src="{{request.user.avatar.url}}" />
+            {% endif %}
           </div>
           <p>
             {{user.name}}
